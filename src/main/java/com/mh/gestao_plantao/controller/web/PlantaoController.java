@@ -1,10 +1,8 @@
-package com.mh.gestao_plantao.controller;
+package com.mh.gestao_plantao.controller.web;
 
 import com.mh.gestao_plantao.model.Plantao;
 import com.mh.gestao_plantao.model.Profissional;
 import com.mh.gestao_plantao.model.Turno;
-import com.mh.gestao_plantao.repository.PlantaoRepository;
-import com.mh.gestao_plantao.repository.ProfissionalRepository;
 import com.mh.gestao_plantao.service.PlantaoService;
 import com.mh.gestao_plantao.service.ProfissionalService;
 import org.springframework.beans.factory.annotation.Autowired;

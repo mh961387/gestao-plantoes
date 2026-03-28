@@ -1,4 +1,4 @@
-package com.mh.gestao_plantao.controller;
+package com.mh.gestao_plantao.controller.web;
 
 import com.mh.gestao_plantao.model.Categoria;
 import com.mh.gestao_plantao.model.Profissional;

@@ -1,4 +1,4 @@
-package com.mh.gestao_plantao.controller;
+package com.mh.gestao_plantao.controller.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

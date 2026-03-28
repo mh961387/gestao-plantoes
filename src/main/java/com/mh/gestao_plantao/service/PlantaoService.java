@@ -5,6 +5,7 @@ import com.mh.gestao_plantao.model.Profissional;
 import com.mh.gestao_plantao.model.Turno;
 import com.mh.gestao_plantao.repository.PlantaoRepository;
 import com.mh.gestao_plantao.repository.ProfissionalRepository;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +140,10 @@ public class PlantaoService {
 
     public Page<Plantao> listarPorDataComPaginacao(LocalDate inicio, LocalDate fim, PageRequest pageRequestPlantoes) {
         return plantaoRepository.findByDataBetween(inicio, fim, pageRequestPlantoes);
+    }
+
+    public Plantao buscarPorId(Long id) {
+        logger.info("Busca de profissionais por ID!");
+        return plantaoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Profissional não encontrado"));
     }
 }
