@@ -12,6 +12,11 @@
 
 <div class="container mt-4">
 
+    <div class="alert alert-danger"
+         th:if="${erro}"
+         th:text="${erro}">
+    </div>
+
     <h2 class="mb-4">Lista de Profissionais</h2>
 
     <!-- 🔎 FILTRO -->
@@ -74,7 +79,7 @@
 
     <!-- 🔢 PAGINAÇÃO -->
     <nav>
-        <ul class="pagination">
+        <ul class="pagination" th:if="${pagina.totalPages > 0}">
 
             <!-- Anterior -->
             <li class="page-item" th:classappend="${pagina.first} ? 'disabled'">
@@ -84,11 +89,15 @@
                 </a>
             </li>
 
-            <!-- Número da página -->
-            <li class="page-item active">
-                <span class="page-link"
-                      th:text="${pagina.number + 1}">
-                </span>
+            <!-- NÚMEROS DAS PÁGINAS -->
+            <li class="page-item"
+                th:each="i : ${#numbers.sequence(0, pagina.totalPages - 1)}"
+                th:classappend="${i == pagina.number} ? 'active'">
+
+                <a class="page-link"
+                   th:href="@{/profissionais(pagina=${i}, categoria=${param.categoria})}"
+                   th:text="${i + 1}">
+                </a>
             </li>
 
             <!-- Próxima -->

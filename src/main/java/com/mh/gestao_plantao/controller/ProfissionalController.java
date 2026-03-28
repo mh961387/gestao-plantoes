@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProfissionalController {
@@ -23,11 +24,11 @@ public class ProfissionalController {
 
     @GetMapping("/profissionais")
     public String listar(
-            @RequestParam(defaultValue = "0") int paginacao,
+            @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(required = false) Categoria categoria,
             Model model
     ) {
-        PageRequest pageRequest = PageRequest.of(paginacao, 5);
+        PageRequest pageRequest = PageRequest.of(pagina, 5);
         Page<Profissional> page;
 
         if (categoria != null) {
@@ -37,7 +38,7 @@ public class ProfissionalController {
         }
 
         model.addAttribute("pagina", page);
-        model.addAttribute("categorias", Categoria.values()); // corrigido
+        model.addAttribute("categorias", Categoria.values());
 
         return "profissionais";
     }
@@ -61,8 +62,12 @@ public class ProfissionalController {
 
         try {
             service.salvar(profissional);
-        } catch (RuntimeException e) {
+        } catch (IllegalArgumentException e) {
             result.rejectValue("registro", "erro.registro", e.getMessage());
+            model.addAttribute("categorias", Categoria.values());
+            return "cadastro-profissional"; // 👈 FALTAVA ISSO
+        } catch (IllegalStateException e) {
+            result.rejectValue("cargaHorariaSemanal", "erro.carga",e.getMessage());
             model.addAttribute("categorias", Categoria.values());
             return "cadastro-profissional";
         }
@@ -82,8 +87,14 @@ public class ProfissionalController {
     }
 
     @GetMapping("/deletar-profissional/{id}")
-    public String deletar(@PathVariable Long id) {
-        service.deletar(id);
+    public String deletar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+        try {
+            service.deletar(id);
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+        }
+
         return "redirect:/profissionais";
     }
 }

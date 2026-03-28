@@ -49,8 +49,17 @@
 
         <!-- Carga Horária -->
         <div class="mb-3">
-            <label class="form-label">Carga Horária Semanal</label>
-            <input type="number" class="form-control" th:field="*{cargaHorariaSemanal}" required>
+            <label>Carga Horária</label>
+
+            <input type="number"
+                   th:field="*{cargaHorariaSemanal}"
+                   th:classappend="${#fields.hasErrors('cargaHorariaSemanal')} ? 'is-invalid'"
+                   class="form-control"/>
+
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('cargaHorariaSemanal')}"
+                 th:errors="*{cargaHorariaSemanal}">
+            </div>
         </div>
 
         <!-- Botões -->
