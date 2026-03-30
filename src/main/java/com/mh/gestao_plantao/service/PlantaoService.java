@@ -143,7 +143,7 @@ public class PlantaoService {
     }
 
     public Plantao buscarPorId(Long id) {
-        logger.info("Busca de profissionais por ID!");
-        return plantaoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Profissional não encontrado"));
+        logger.info("Busca de plantão por ID!");
+        return plantaoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Plantão não encontrado"));
     }
 }

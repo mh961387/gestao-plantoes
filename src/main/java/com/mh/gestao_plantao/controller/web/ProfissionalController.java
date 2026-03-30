@@ -65,7 +65,7 @@ public class ProfissionalController {
         } catch (IllegalArgumentException e) {
             result.rejectValue("registro", "erro.registro", e.getMessage());
             model.addAttribute("categorias", Categoria.values());
-            return "cadastro-profissional"; // 👈 FALTAVA ISSO
+            return "cadastro-profissional";
         } catch (IllegalStateException e) {
             result.rejectValue("cargaHorariaSemanal", "erro.carga",e.getMessage());
             model.addAttribute("categorias", Categoria.values());

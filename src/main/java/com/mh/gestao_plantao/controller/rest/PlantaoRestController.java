@@ -7,46 +7,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.NoSuchElementException;
-
 @RestController
+@RequestMapping("/api/plantoes")
 public class PlantaoRestController {
 
     @Autowired
     private PlantaoService plantaoService;
 
-    @PostMapping("/api/plantoes")
+    @PostMapping
     public ResponseEntity<?> salvarPlantao(
             @RequestParam Long profissionalId,
             @RequestParam String data,
             @RequestParam Turno turno) {
 
-        try {
-            plantaoService.salvar(profissionalId, data, turno);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        plantaoService.salvar(profissionalId, data, turno);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/api/plantoes/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> buscar(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(plantaoService.buscarPorId(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+        return ResponseEntity.ok(plantaoService.buscarPorId(id));
     }
 
-    @DeleteMapping("/api/plantoes/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        try {
-            plantaoService.deletar(id);
-            return ResponseEntity.noContent().build();
 
-        } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        plantaoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
