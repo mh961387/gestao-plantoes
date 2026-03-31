@@ -57,4 +57,19 @@ class PlantaoServiceTest {
             service.salvar(1L, "2027-01-01", Turno.MANHA);
         });
     }
+
+    @Test
+    void naoDeveCadastrarPlantaoComCargaHorariaMaiorQueCadastrado() {
+
+        Profissional prof = new Profissional();
+        prof.setId(1L);
+        prof.setCargaHorariaSemanal(5);
+
+        when(profissionalRepository.findById(1L))
+                .thenReturn(Optional.of(prof));
+
+        assertThrows(RuntimeException.class, () -> {
+            service.salvar(1L, "2027-01-01", Turno.MANHA);
+        });
+    }
 }
