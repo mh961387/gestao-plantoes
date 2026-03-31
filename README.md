@@ -9,7 +9,7 @@ A aplicação permite controlar escalas de trabalho de forma organizada, garanti
 
 ## 🚀 Tecnologias Utilizadas
 
-- Java 21
+- Java 17
 - Spring Boot 3
 - Spring Web
 - Spring Data JPA
