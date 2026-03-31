@@ -15,7 +15,6 @@ A aplicação permite controlar escalas de trabalho de forma organizada, garanti
 - Spring Data JPA
 - H2 Database (em memória)
 - Maven
-- Swagger / OpenAPI
 - JUnit (testes unitários)
 
 
